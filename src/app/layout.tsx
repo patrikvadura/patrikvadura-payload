@@ -9,6 +9,7 @@ import { InitTheme } from './_providers/Theme/InitTheme'
 import { mergeOpenGraph } from './_utilities/mergeOpenGraph'
 
 import './_css/app.scss'
+import '../tailwind.css'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
+          <div className="font-bold underline">hi</div>
           <AdminBar />
           {/* @ts-expect-error */}
           <Header />

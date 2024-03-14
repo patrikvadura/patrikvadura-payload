@@ -24,6 +24,8 @@ import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
 
+import '../tailwind.css'
+
 const generateTitle: GenerateTitle = () => {
   return 'My Website'
 }
@@ -46,6 +48,16 @@ export default buildConfig({
     },
     webpack: config => ({
       ...config,
+      module: {
+        ...config.module,
+        rules: [
+          ...config.module.rules,
+          {
+            test: /\tailwind.css$/i,
+            use: ['css-loader', 'postcss-loader'],
+          },
+        ],
+      },
       resolve: {
         ...config.resolve,
         alias: {
