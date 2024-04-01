@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Payload */
+:root {
+    --base-px: 25;
+    --base-body-size: 13;
+    --base: calc((var(--base-px) / var(--base-body-size)) * 1rem);
+    --scrollbar-width: 17px;
+
+    --theme-bg: var(--theme-elevation-0);
+    --theme-input-bg: var(--theme-elevation-0);
+    --theme-text: var(--theme-elevation-800);
+    --theme-overlay: rgba(5, 5, 5, 0.5);
+
+    --nav-width: 275px;
+    --nav-trans-time: 150ms;
+}
+
+html[data-theme='dark'] {
+    --theme-text: var(--theme-elevation-1000);
+    --theme-input-bg: var(--theme-elevation-50);
+    --theme-overlay: rgba(5, 5, 5, 0.75);
+    --tw-prose-headings: #fff !important;
+}
+
+.btn--style-primary {
+  background-color: var(--theme-elevation-800);
+  color: var(--theme-elevation-0);
+}
+
+/* NextJS */
