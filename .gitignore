@@ -8,3 +8,11 @@ node_modules
 
 # Payload default media upload directory
 public/media/
+
+# IDE
+.idea
+.vscode
+
+# Package manager
+package-lock.json
+pnpm-lock.yaml
