@@ -1,51 +1,27 @@
-const { withPayload } = require("@payloadcms/next-payload");
-const path = require("path");
+import { withPayload } from '@payloadcms/next/withPayload'
+
+import redirects from './redirects.js'
+
+const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : undefined || process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = withPayload(
-  {
-    eslint: {
-      ignoreDuringBuilds: true,
-    },
-    transpilePackages: [
-      "@payloadcms/plugin-seo",
-      "payload/components/forms",
-      "payload/components",
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
+        const url = new URL(item)
+
+        return {
+          hostname: url.hostname,
+          protocol: url.protocol.replace(':', ''),
+        }
+      }),
     ],
-    images: {
-      remotePatterns: [
-        { hostname: "localhost" },
-        { hostname: "nextjs-vercel.payloadcms.com" },
-        {
-          protocol: "https",
-          hostname: new URL(process.env.NEXT_PUBLIC_APP_URL).hostname,
-        },
-        {
-          protocol: "https",
-          hostname: new URL(process.env.NEXT_PUBLIC_S3_ENDPOINT).hostname,
-        },
-      ],
-      // domains: [
-      //   "localhost",
-      //   "nextjs-vercel.payloadcms.com",
-      //   process.env.NEXT_PUBLIC_APP_URL,
-      //   `${process.env.NEXT_PUBLIC_S3_ENDPOINT}`.replace("https://", ""),
-      // ],
-    },
-    webpack: {
-      resolve: {
-        alias: {},
-      },
-    },
   },
-  {
-    configPath: path.resolve(__dirname, "./payload/payload.config"),
-  }
-);
+  reactStrictMode: true,
+  redirects,
+}
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: true,
-});
-
-module.exports =
-  process.env.ANALYZE === "true" ? withBundleAnalyzer(nextConfig) : nextConfig;
+export default withPayload(nextConfig)
