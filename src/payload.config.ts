@@ -90,6 +90,20 @@ export default buildConfig({
     supportedLanguages: { cs, en },
     fallbackLanguage: 'cs',
   },
+  localization: {
+    locales: [
+      {
+        label: 'Čeština',
+        code: 'cs',
+      },
+      {
+        label: 'English',
+        code: 'en',
+      },
+    ],
+    defaultLocale: 'cs',
+    fallback: true,
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

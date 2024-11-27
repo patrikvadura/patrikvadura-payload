@@ -35,6 +35,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Typo Only',
+          value: 'typoOnly',
+        },
       ],
       required: true,
     },
@@ -52,10 +56,14 @@ export const hero: Field = {
         },
       }),
       label: false,
+      localized: true,
     },
     linkGroup({
       overrides: {
         maxRows: 2,
+        admin: {
+          condition: (_, { type } = {}) => !['typoOnly'].includes(type),
+        },
       },
     }),
     {

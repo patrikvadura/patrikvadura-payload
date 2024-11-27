@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 
-import { cn } from 'src/utilities/cn'
 import localFont from 'next/font/local'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { Footer } from '@/Footer/Component'
@@ -15,6 +12,8 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { AdminBar } from '@/components/AdminBar'
+import { draftMode } from 'next/headers'
 
 const defaultFont = localFont({
   src: [
@@ -42,15 +41,24 @@ const defaultFont = localFont({
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { isEnabled } = await draftMode()
+
   return (
-    <html className={`${defaultFont.className} antialiased`} lang="en" suppressHydrationWarning>
+    <html
+      className={`${defaultFont.className} antialiased scroll-smooth`}
+      lang="cs-CZ"
+      suppressHydrationWarning
+    >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className="bg-black">
         <Providers>
+          <AdminBar
+            adminBarProps={{
+              preview: isEnabled,
+            }}
+          />
           <LivePreviewListener />
 
           <Header />
@@ -67,6 +75,22 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@patrikvadura',
+  },
+  icons: {
+    icon: [
+      {
+        url: `/icon?<generated>`,
+        sizes: '32x32',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: `/apple-icon?<generated>`,
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
   },
 }

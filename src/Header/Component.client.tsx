@@ -8,14 +8,12 @@ import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
-import { AdminBar } from '@/components/AdminBar'
 
 interface HeaderClientProps {
   header: Header
-  previewEnabled: boolean
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ header, previewEnabled }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -23,7 +21,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header, previewEnabl
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
+      setIsScrolled(window.scrollY > 280)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -44,16 +42,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header, previewEnabl
 
   return (
     <header
-      className={`w-full z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'fixed bg-black' : 'relative'}`}
+      className={`fixed w-full z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'opacity-100 scale-y-100 bg-black' : 'opacity-0 scale-y-0'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <AdminBar
-        adminBarProps={{
-          preview: previewEnabled,
-        }}
-      />
       <div
-        className={`container border-b border-border flex justify-between transition-all duration-300 ease-in-out ${
+        className={`px-12 border-b border-border flex justify-between transition-all duration-300 ease-in-out ${
           isScrolled ? 'py-4' : 'py-6 md:py-8'
         }`}
       >

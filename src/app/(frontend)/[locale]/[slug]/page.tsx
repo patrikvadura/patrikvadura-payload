@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -26,40 +25,43 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
+  const locales = ['en', 'cs'] // Podporované jazyky
+
+  // Generujeme všechny kombinace `slug` a `locale`, včetně `home`
+  const params = pages.docs.flatMap(({ slug }) => {
+    return locales.map((locale) => ({
+      slug: slug === 'home' ? undefined : slug, // Prázdný slug pro `/[locale]`
+      locale,
+    }))
+  })
 
   return params
 }
 
 type Args = {
-  params: Promise<{
+  params: {
     slug?: string
-  }>
+    locale?: string
+  }
 }
 
-export default async function Page({ params: paramsPromise }: Args) {
-  const { slug = 'home' } = await paramsPromise
-  const url = '/' + slug
+export default async function Page({ params }: Args) {
+  const { slug = 'home', locale = 'cs' } = params // Získáme jazyk a slug z parametrů
 
   let page: PageType | null
 
   page = await queryPageBySlug({
     slug,
+    locale, // Předáme jazyk do dotazu
   })
 
-  // Remove this code once your website is seeded
+  // Fallback pro seedovanou domovskou stránku
   if (!page && slug === 'home') {
     page = homeStatic
   }
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    return <PayloadRedirects url={`/${locale}`} />
   }
 
   const { hero, layout } = page
@@ -67,25 +69,24 @@ export default async function Page({ params: paramsPromise }: Args) {
   return (
     <article className="pt-16 pb-24">
       <PageClient />
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
-
+      <PayloadRedirects disableNotFound url={`/${locale}`} />
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />
     </article>
   )
 }
 
-export async function generateMetadata({ params: paramsPromise }): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug = 'home', locale = 'cs' } = params
   const page = await queryPageBySlug({
     slug,
+    locale,
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPageBySlug = cache(async ({ slug, locale = 'cs' }: { slug: string; locale: string }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -101,6 +102,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
         equals: slug,
       },
     },
+    locale, // Jazyk pro dotaz
   })
 
   return result.docs?.[0] || null
