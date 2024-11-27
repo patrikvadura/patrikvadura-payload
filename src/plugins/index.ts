@@ -28,6 +28,16 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      labels: {
+        singular: {
+          cs: 'Přesměrování',
+          en: 'Redirect',
+        },
+        plural: {
+          cs: 'Přesměrování',
+          en: 'Redirects',
+        },
+      },
       // @ts-expect-error
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -42,6 +52,9 @@ export const plugins: Plugin[] = [
           return field
         })
       },
+      admin: {
+        hidden: true,
+      },
       hooks: {
         afterChange: [revalidateRedirects],
       },
@@ -55,10 +68,21 @@ export const plugins: Plugin[] = [
     generateURL,
   }),
   formBuilderPlugin({
+    defaultToEmail: 'dev@vadura.dev',
     fields: {
       payment: false,
     },
     formOverrides: {
+      labels: {
+        singular: {
+          cs: 'Formulář',
+          en: 'Form',
+        },
+        plural: {
+          cs: 'Formuláře',
+          en: 'Forms',
+        },
+      },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
@@ -80,14 +104,24 @@ export const plugins: Plugin[] = [
       },
     },
   }),
-  searchPlugin({
-    collections: ['posts'],
-    beforeSync: beforeSyncWithSearch,
-    searchOverrides: {
-      fields: ({ defaultFields }) => {
-        return [...defaultFields, ...searchFields]
-      },
-    },
-  }),
+  // searchPlugin({
+  //   collections: ['pages', 'posts'],
+  //   beforeSync: beforeSyncWithSearch,
+  //   searchOverrides: {
+  //     labels: {
+  //       singular: {
+  //         cs: 'Výsledky vyhledávání',
+  //         en: 'Search Results',
+  //       },
+  //       plural: {
+  //         cs: 'Výsledky vyhledávání',
+  //         en: 'Search Results',
+  //       },
+  //     },
+  //     fields: ({ defaultFields }) => {
+  //       return [...defaultFields, ...searchFields]
+  //     },
+  //   },
+  // }),
   payloadCloudPlugin(),
 ]

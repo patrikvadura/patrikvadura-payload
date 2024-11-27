@@ -114,6 +114,11 @@ export default {
               fontWeight: 'normal',
               marginBottom: '0.25em',
             },
+            a: {
+              '&:hover': {
+                color: theme('colors.primary.DEFAULT'),
+              },
+            },
           },
         },
       }),

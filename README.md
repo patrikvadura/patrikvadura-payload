@@ -1,6 +1,6 @@
 # Next.js Frontend based on Payload CMS
 
-NextJS frontend for websites based on Payload CMS.
+Next.js frontend for websites based on Payload CMS.
 
 ### Development
 

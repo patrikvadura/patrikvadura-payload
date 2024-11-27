@@ -1,10 +1,20 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { anyone } from '@/access/anyone'
+import { authenticated } from '@/access/authenticated'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
+  labels: {
+    singular: {
+      cs: 'Kategorie',
+      en: 'Category',
+    },
+    plural: {
+      cs: 'Kategorie',
+      en: 'Categories',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,

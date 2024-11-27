@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const AdminPreview: React.FC = () => {
   return (
-    <Link href="/" target="live-preview">
+    <Link href="/" target="_blank">
       <Button className="preview-button" size="small" buttonStyle="pill">
         Náhled webu
       </Button>

@@ -1,9 +1,19 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../../access/authenticated'
+import { authenticated } from '@/access/authenticated'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: {
+      cs: 'Uživatel',
+      en: 'User',
+    },
+    plural: {
+      cs: 'Uživatelé',
+      en: 'Users',
+    },
+  },
   access: {
     admin: authenticated,
     create: authenticated,
