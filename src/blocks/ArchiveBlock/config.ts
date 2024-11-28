@@ -12,6 +12,14 @@ export const Archive: Block = {
   interfaceName: 'ArchiveBlock',
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      label: {
+        cs: 'Nadpis sekce',
+        en: 'Section Title',
+      },
+    },
+    {
       name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
@@ -85,6 +93,15 @@ export const Archive: Block = {
       hasMany: true,
       label: 'Selection',
       relationTo: ['posts'],
+    },
+    {
+      name: 'sectionId',
+      type: 'text',
+      required: false,
+      label: {
+        cs: 'ID sekce',
+        en: 'Section ID',
+      },
     },
   ],
   labels: {

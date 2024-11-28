@@ -25,34 +25,31 @@ export async function generateStaticParams() {
     },
   })
 
-  const locales = ['en', 'cs'] // Podporované jazyky
+  const locales = ['en', 'cs']
 
-  // Generujeme všechny kombinace `slug` a `locale`, včetně `home`
-  const params = pages.docs.flatMap(({ slug }) => {
+  return pages.docs.flatMap(({ slug }) => {
     return locales.map((locale) => ({
-      slug: slug === 'home' ? undefined : slug, // Prázdný slug pro `/[locale]`
+      slug: slug === 'home' ? undefined : slug,
       locale,
     }))
   })
-
-  return params
 }
 
 type Args = {
   params: {
     slug?: string
-    locale?: string
+    locale?: 'cs' | 'en' | undefined
   }
 }
 
 export default async function Page({ params }: Args) {
-  const { slug = 'home', locale = 'cs' } = params // Získáme jazyk a slug z parametrů
+  const { slug = 'home', locale = 'cs' } = params
 
   let page: PageType | null
 
   page = await queryPageBySlug({
     slug,
-    locale, // Předáme jazyk do dotazu
+    locale,
   })
 
   // Fallback pro seedovanou domovskou stránku
@@ -86,24 +83,26 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug, locale = 'cs' }: { slug: string; locale: string }) => {
-  const { isEnabled: draft } = await draftMode()
+const queryPageBySlug = cache(
+  async ({ slug, locale = 'cs' }: { slug: string; locale: 'cs' | 'en' | undefined }) => {
+    const { isEnabled: draft } = await draftMode()
 
-  const payload = await getPayload({ config: configPromise })
+    const payload = await getPayload({ config: configPromise })
 
-  const result = await payload.find({
-    collection: 'pages',
-    draft,
-    limit: 1,
-    pagination: false,
-    overrideAccess: draft,
-    where: {
-      slug: {
-        equals: slug,
+    const result = await payload.find({
+      collection: 'pages',
+      draft,
+      limit: 1,
+      pagination: false,
+      overrideAccess: draft,
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-    locale, // Jazyk pro dotaz
-  })
+      locale,
+    })
 
-  return result.docs?.[0] || null
-})
+    return result.docs?.[0] || null
+  },
+)

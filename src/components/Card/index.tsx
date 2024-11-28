@@ -2,13 +2,18 @@
 import { cn } from '@/utilities/cn'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
-import React, { Fragment } from 'react'
+import React, { useEffect, useRef, Fragment } from 'react'
 
 import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { IconArrowDown } from '@/components/ui/Icons'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'client'>
+
+gsap.registerPlugin(ScrollTrigger)
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -29,57 +34,101 @@ export const Card: React.FC<{
   const sanitizedDescription = description?.replace(/\s/g, ' ')
   const href = `/${relationTo}/${slug}`
 
+  const itemRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (itemRef.current) {
+      gsap.fromTo(
+        card.ref,
+        { x: -100, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: itemRef.current,
+            start: '20% 80%',
+            toggleActions: 'play none none none',
+          },
+        },
+      )
+    }
+  }, [itemRef])
+
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
+        'basis-full px-2 transition-all duration-[1s] ease-in-out md:basis-2/4 lg:basis-1/4 lg:hover:basis-2/4',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
-      </div>
-      <div className="p-4">
-        {showCategories && hasCategories && (
-          <div className="uppercase text-sm mb-4">
-            {showCategories && hasCategories && (
-              <div>
-                {categories?.map((category, index) => {
-                  if (typeof category === 'object') {
-                    const { title: titleFromCategory } = category
+      <Link className="not-prose" href={href} ref={link.ref} suppressHydrationWarning>
+        <div className="group w-full h-[340px] md:h-[440px] rounded-2xl relative overflow-hidden transition-all duration-[1s] ease-in-out">
+          {!metaImage && <div className="">No image</div>}
+          {metaImage && typeof metaImage !== 'string' && (
+            <Media
+              resource={metaImage}
+              size="33vw"
+              className="w-full h-full object-cover"
+              imgClassName="w-full h-full object-cover opacity-90 scale-100 object-center group-hover:scale-110 transition-all duration-300 ease-in-out"
+            />
+          )}
 
-                    const categoryTitle = titleFromCategory || 'Untitled category'
+          <div
+            className="py-4 px-6 absolute lg:opacity-0 rounded-xl bottom-4 left-4 right-4 flex flex-col space-y-3 lg:-translate-y-12 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0"
+            style={{ background: 'rgba(0, 0, 0, .1)', backdropFilter: 'blur(30px)' }}
+          >
+            <span>
+              {showCategories && hasCategories && (
+                <div className="uppercase text-sm mb-4">
+                  {showCategories && hasCategories && (
+                    <div>
+                      {categories?.map((category, index) => {
+                        if (typeof category === 'object') {
+                          const { title: titleFromCategory } = category
 
-                    const isLast = index === categories.length - 1
+                          const categoryTitle = titleFromCategory || 'Untitled category'
 
-                    return (
-                      <Fragment key={index}>
-                        {categoryTitle}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
-                    )
-                  }
+                          const isLast = index === categories.length - 1
 
-                  return null
-                })}
-              </div>
-            )}
+                          return (
+                            <Fragment key={index}>
+                              {categoryTitle}
+                              {!isLast && <Fragment>, &nbsp;</Fragment>}
+                            </Fragment>
+                          )
+                        }
+
+                        return null
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
+              {titleToUse && (
+                <div className="prose">
+                  <h3 className="text-white text-xl font-semibold">{titleToUse}</h3>
+                </div>
+              )}
+
+              {client && <p className="text-white text-opacity-50 text-base">{client}</p>}
+            </span>
           </div>
-        )}
-        {client && <div className="font-bold">{client}</div>}
-        {titleToUse && (
-          <div className="prose">
-            <h3>
-              <Link className="not-prose" href={href} ref={link.ref}>
-                {titleToUse}
-              </Link>
-            </h3>
+
+          <div
+            className="absolute top-4 right-4 flex justify-center items-center bg-white rounded-full size-12 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-20"
+            style={{ background: 'rgba(0, 0, 0, .1)', backdropFilter: 'blur(30px)' }}
+          >
+            <IconArrowDown
+              size={24}
+              color="#ffffff"
+              className="-rotate-45 transition-all duration-300 ease-in-out"
+            />
           </div>
-        )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
-      </div>
+        </div>
+      </Link>
     </article>
   )
 }

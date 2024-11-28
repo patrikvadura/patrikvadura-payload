@@ -100,7 +100,7 @@ export const TypoOnly: React.FC<Page['hero']> = ({ richText }) => {
             ref={borderSectionRef}
             className="relative md:basis-2/3 border-t-[.5px] md:border-t-0 md:border-l-[.5px] border-black dark:border-white border-opacity-50 flex flex-col items-start justify-between space-y-16 pt-8 md:pt-4 md:pl-12"
           >
-            <Link href="#portfolio">
+            <Link href="#block-portfolio">
               <AnimatedHeading
                 as="h3"
                 delay={0.5}

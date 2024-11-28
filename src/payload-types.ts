@@ -311,6 +311,7 @@ export interface MediaBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  title?: string | null;
   introContent?: {
     root: {
       type: string;
@@ -336,6 +337,7 @@ export interface ArchiveBlock {
         value: string | Post;
       }[]
     | null;
+  sectionId?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
@@ -834,12 +836,14 @@ export interface PagesSelect<T extends boolean = true> {
         archive?:
           | T
           | {
+              title?: T;
               introContent?: T;
               populateBy?: T;
               relationTo?: T;
               categories?: T;
               limit?: T;
               selectedDocs?: T;
+              sectionId?: T;
               id?: T;
               blockName?: T;
             };

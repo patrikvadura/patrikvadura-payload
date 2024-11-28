@@ -2,13 +2,12 @@ import { redirect } from 'next/navigation'
 
 type Props = {
   params: {
-    locale: string
+    locale: 'cs' | 'en' | undefined
   }
 }
 
 export default function LocalePage({ params }: Props) {
   const { locale } = params
 
-  // Přesměrování na `/[locale]/home`
   redirect(`/${locale}/home`)
 }
