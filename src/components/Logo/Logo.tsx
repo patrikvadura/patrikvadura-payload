@@ -11,7 +11,7 @@ export const Logo = (props: Props) => {
   return (
     <svg
       width={200}
-      className={clsx('text-white max-w-[8rem] w-full h-[34px]', className)}
+      className={clsx('text-black dark:text-white max-w-[8rem] w-full', className)}
       viewBox="0 0 997 187"
     >
       <path

@@ -5,9 +5,10 @@ import React, { useState } from 'react'
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { usePathname } from 'next/navigation'
 import { IconClose, IconHamburger } from '@/components/ui/Icons'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
@@ -28,13 +29,15 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
             <CMSLink
               key={i}
               {...link}
-              className={`group relative flex items-center px-4 py-2 text-sm text-secondary dark:text-white hover:brightness-90 font-semibold ${
+              className={`group relative flex items-center px-4 py-2 text-sm text-secondary text-black dark:text-white hover:brightness-90 font-semibold ${
                 isActive ? 'h-1 bg-opacity-100' : 'group-hover:h-1 group-hover:bg-opacity-100'
               }`}
               appearance="link"
             />
           )
         })}
+
+        <LanguageSwitcher />
       </div>
 
       <div className="sm:hidden">
@@ -47,7 +50,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
         </button>
 
         {isOpen && (
-          <div className="absolute top-full right-0 w-full h-[90vh] pb-[25vh] flex flex-col items-center justify-end space-y-3 bg-white">
+          <div className="absolute top-full right-0 w-full h-[90vh] pb-[25vh] flex flex-col items-center justify-end space-y-3 bg-white dark:bg-black">
             {navItems.map(({ link }, i) => {
               const isActive = pathname === link.url
 
@@ -56,7 +59,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
                   key={i}
                   {...link}
                   onClick={closeMenu}
-                  className={`group relative flex items-center px-4 py-2 text-sm text-neutral-600 dark:text-white hover:brightness-90 font-semibold ${
+                  className={`group relative flex items-center px-4 py-2 text-sm text-black dark:text-white hover:brightness-90 font-semibold ${
                     isActive ? 'h-1 bg-opacity-100' : 'group-hover:h-1 group-hover:bg-opacity-100'
                   }`}
                   appearance="link"

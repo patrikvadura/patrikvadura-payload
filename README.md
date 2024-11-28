@@ -2,12 +2,21 @@
 
 Next.js frontend for websites based on Payload CMS.
 
+### Requirements & knowledge
+
+- [Node.js](https://nodejs.org) (v20.9.0)
+- [pnpm](https://pnpm.io) (9.14.2)
+- [Payload CMS](https://payloadcms.com)
+- [MongoDB](https://www.mongodb.com)
+- [AWS](https://aws.amazon.com)
+- [shadcn/ui](https://ui.shadcn.com)
+
 ### Development
 
 1. First [clone the repo](#clone) if you have not done so already
-1. Setup `.env` to set the environment variables
-1. `pnpm install && pnpm dev` to install dependencies and start the dev server
-1. open `http://localhost:3000` to open the app in your browser
+2. Setup `.env` to set the environment variables
+3. `pnpm install && pnpm dev` to install dependencies and start the dev server
+4. open `http://localhost:3000` to open the app in your browser
 
 That's it! Changes made in `./src` will be reflected in app.
 

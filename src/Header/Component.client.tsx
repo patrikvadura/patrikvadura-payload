@@ -42,11 +42,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
   return (
     <header
-      className={`fixed w-full z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'opacity-100 scale-y-100 bg-black' : 'opacity-0 scale-y-0'}`}
+      className={`fixed w-full z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'opacity-100 scale-y-100 bg-white dark:bg-black' : 'opacity-0 scale-y-0'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div
-        className={`px-12 border-b border-border flex justify-between transition-all duration-300 ease-in-out ${
+        className={`px-4 md:px-12 border-b border-border flex justify-between transition-all duration-300 ease-in-out ${
           isScrolled ? 'py-4' : 'py-6 md:py-8'
         }`}
       >

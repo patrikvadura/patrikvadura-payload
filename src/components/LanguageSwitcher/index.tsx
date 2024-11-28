@@ -3,24 +3,41 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 const LanguageSwitcher = () => {
   const pathname = usePathname()
-  const locales = ['en', 'cs'] // Podporované jazyky
+  const locales = ['en', 'cs']
 
   return (
-    <div className="flex flex-row items-center space-x-4 translate-y-3">
-      {locales.map((lang) => {
-        // Zkontrolujeme, jestli jsme na rootu `/` nebo `/[locale]`
-        const currentPathWithoutLocale = pathname.replace(/^\/(en|cs)/, '') || ''
-        const newPath = `/${lang}${currentPathWithoutLocale}`
+    <Select>
+      <SelectTrigger className="w-auto border-none uppercase text-sm">
+        <SelectValue placeholder="cs" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {locales.map((lang) => {
+            const currentPathWithoutLocale = pathname.replace(/^\/(en|cs)/, '') || ''
+            const newPath = `/${lang}${currentPathWithoutLocale}`
 
-        return (
-          <Link key={lang} href={newPath} className="text-white">
-            <button>{lang.toUpperCase()}</button>
-          </Link>
-        )
-      })}
-    </div>
+            return (
+              <SelectItem key={lang} value={lang}>
+                <Link href={newPath} className="text-sm text-white">
+                  <button>{lang.toUpperCase()}</button>
+                </Link>
+              </SelectItem>
+            )
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }
 

@@ -366,6 +366,21 @@ export interface Category {
 export interface Post {
   id: string;
   title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   content: {
     root: {
       type: string;
@@ -383,6 +398,7 @@ export interface Post {
   };
   relatedPosts?: (string | Post)[] | null;
   categories?: (string | Category)[] | null;
+  client: string;
   meta?: {
     title?: string | null;
     image?: (string | null) | Media;
@@ -857,9 +873,11 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   content?: T;
   relatedPosts?: T;
   categories?: T;
+  client?: T;
   meta?:
     | T
     | {

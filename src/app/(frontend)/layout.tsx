@@ -52,7 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <InitTheme />
       </head>
-      <body className="bg-black">
+      <body className="bg-white dark:bg-black">
         <Providers>
           <AdminBar
             adminBarProps={{

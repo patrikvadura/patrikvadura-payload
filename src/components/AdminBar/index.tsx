@@ -14,24 +14,14 @@ import { getClientSideURL } from '@/utilities/getURL'
 
 const baseClass = 'admin-bar'
 
-const collectionLabels = {
-  pages: {
-    plural: 'Pages',
-    singular: 'Page',
-  },
-  posts: {
-    plural: 'Posts',
-    singular: 'Post',
-  },
-  projects: {
-    plural: 'Projects',
-    singular: 'Project',
-  },
-}
-
 const Logo: React.FC = () => (
   <span>
-    <svg className="text-white" width={15} viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className="text-black dark:text-white"
+      width={15}
+      viewBox="0 0 25 25"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M11.8673 21.2336L4.40922 16.9845C4.31871 16.9309 4.25837 16.8355 4.25837 16.7282V10.1609C4.25837 10.0477 4.38508 9.97616 4.48162 10.0298L13.1404 14.9642C13.2611 15.0358 13.412 14.9464 13.412 14.8093V11.6091C13.412 11.4839 13.3456 11.3647 13.2309 11.2992L2.81624 5.36353C2.72573 5.30989 2.60505 5.30989 2.51454 5.36353L1.15085 6.14422C1.06034 6.19786 1 6.29321 1 6.40048V18.5995C1 18.7068 1.06034 18.8021 1.15085 18.8558L11.8491 24.9583C11.9397 25.0119 12.0603 25.0119 12.1509 24.9583L21.1355 19.8331C21.2562 19.7616 21.2562 19.5948 21.1355 19.5232L18.3357 17.9261C18.2211 17.8605 18.0883 17.8605 17.9737 17.9261L12.175 21.2336C12.0845 21.2872 11.9638 21.2872 11.8733 21.2336H11.8673Z"
         fill="currentColor"
@@ -60,7 +50,7 @@ export const AdminBar: React.FC<{
     <div
       className={cn(
         baseClass,
-        'fixed bottom-4 right-1/2 translate-x-1/2 rounded-full bg-white bg-opacity-10 backdrop-blur text-white z-50',
+        'fixed bottom-4 right-1/2 translate-x-1/2 rounded-full bg-black dark:bg-white bg-opacity-10 dark:bg-opacity-10 backdrop-blur text-black dark:text-white z-50',
         {
           block: show,
           hidden: !show,
@@ -70,13 +60,13 @@ export const AdminBar: React.FC<{
       <div className="px-4 py-2">
         <PayloadAdminBar
           {...adminBarProps}
-          className="py-2 !text-white"
+          className="py-2 !text-black dark:!text-white"
           cmsURL={getClientSideURL()}
           logo={<Logo />}
           logoutProps={{
+            className: '!border-black dark:!border-white !border-opacity-20 font-bold',
             style: {
-              fontWeight: 700,
-              borderLeft: '1px solid rgba(255, 255, 255, .3)',
+              borderLeftWidth: '1px',
               paddingLeft: '1rem',
             },
           }}

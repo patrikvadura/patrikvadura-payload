@@ -27,6 +27,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
 import { getServerSideURL } from '@/utilities/getURL'
+import { hero } from '@/heros/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -92,6 +93,25 @@ export const Posts: CollectionConfig<'posts'> = {
         {
           fields: [
             {
+              name: 'description',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    InlineToolbarFeature(),
+                    HorizontalRuleFeature(),
+                  ]
+                },
+              }),
+              label: {
+                cs: 'Úvodní popisek',
+                en: 'Introduction',
+              },
+              required: true,
+            },
+            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -106,7 +126,10 @@ export const Posts: CollectionConfig<'posts'> = {
                   ]
                 },
               }),
-              label: false,
+              label: {
+                cs: 'Obsah',
+                en: 'Content',
+              },
               required: true,
             },
           ],
@@ -138,6 +161,15 @@ export const Posts: CollectionConfig<'posts'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+            },
+            {
+              name: 'client',
+              type: 'text',
+              label: {
+                cs: 'Klient',
+                en: 'Client',
+              },
+              required: true,
             },
           ],
           label: 'Meta',

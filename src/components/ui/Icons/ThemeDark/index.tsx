@@ -3,7 +3,7 @@ import { Icon } from '@/lib/types'
 
 export default function IconThemeDark({ size = '32', color = 'currentColor', className }: Icon) {
   return (
-    <svg width={size} height={size} className={className} viewBox="0 0 24 24">
+    <svg width={size} height={size} className={`${className} relative`} viewBox="0 0 24 24">
       <g
         fill="none"
         stroke={color}
@@ -133,7 +133,7 @@ export default function IconThemeDark({ size = '32', color = 'currentColor', cla
           />
         </path>
       </g>
-      <g fill="none" stroke={color} stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <g fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
         <g>
           <path strokeDasharray="2" strokeDashoffset="4" d="M12 21v1M21 12h1M12 3v-1M3 12h-1">
             <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="4;2" />

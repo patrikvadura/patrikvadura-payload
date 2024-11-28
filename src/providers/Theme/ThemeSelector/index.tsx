@@ -1,51 +1,40 @@
 'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import React, { useState } from 'react'
-
-import type { Theme } from './types'
-
+import React, { useEffect, useState } from 'react'
 import { useTheme } from '..'
 import { themeLocalStorageKey } from './types'
+import { IconThemeDark, IconThemeLight } from '@/components/ui/Icons'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()
-  const [value, setValue] = useState('')
+  const [theme, setLocalTheme] = useState<'light' | 'dark'>('light')
 
-  const onThemeChange = (themeToSet: Theme & 'auto') => {
-    if (themeToSet === 'auto') {
-      setTheme(null)
-      setValue('auto')
-    } else {
-      setTheme(themeToSet)
-      setValue(themeToSet)
-    }
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    setLocalTheme(newTheme)
+    window.localStorage.setItem(themeLocalStorageKey, newTheme)
   }
 
-  React.useEffect(() => {
-    const preference = window.localStorage.getItem(themeLocalStorageKey)
-    setValue(preference ?? 'auto')
-  }, [])
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem(themeLocalStorageKey) as 'light' | 'dark'
+    if (savedTheme) {
+      setLocalTheme(savedTheme)
+      setTheme(savedTheme)
+    }
+  }, [setTheme])
 
   return (
-    <Select onValueChange={onThemeChange} value={value}>
-      <SelectTrigger
-        aria-label="Select a theme"
-        className="w-auto bg-transparent gap-2 pl-0 md:pl-3 border-none"
-      >
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="auto">Auto</SelectItem>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-      </SelectContent>
-    </Select>
+    <button
+      onClick={toggleTheme}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+      className="bg-transparent border-none p-2 cursor-pointer relative"
+    >
+      {theme === 'light' ? (
+        <IconThemeDark size={20} className="text-black" />
+      ) : (
+        <IconThemeLight size={20} className="text-white" />
+      )}
+    </button>
   )
 }

@@ -3,7 +3,7 @@ import { Icon } from '@/lib/types'
 
 export default function IconThemeLight({ size = '32', color = 'currentColor', className }: Icon) {
   return (
-    <svg width={size} height={size} className={className} viewBox="0 0 24 24">
+    <svg width={size} height={size} className={`${className} relative`} viewBox="0 0 24 24">
       <g
         fill="none"
         stroke="currentColor"
@@ -11,7 +11,7 @@ export default function IconThemeLight({ size = '32', color = 'currentColor', cl
         strokeLinejoin="round"
         strokeWidth="2"
       >
-        <path stroke-dasharray="2" stroke-dashoffset="2" d="M12 19v1M19 12h1M12 5v-1M5 12h-1">
+        <path strokeDasharray="2" strokeDashoffset="2" d="M12 19v1M19 12h1M12 5v-1M5 12h-1">
           <animate
             fill="freeze"
             attributeName="d"
