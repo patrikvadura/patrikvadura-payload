@@ -1,8 +1,4 @@
-'use client'
-
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-
+import { usePathname, useRouter } from 'next/navigation'
 import {
   Select,
   SelectContent,
@@ -11,30 +7,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useEffect, useMemo, useState } from 'react'
 
 const LanguageSwitcher = () => {
   const pathname = usePathname()
-  const locales = ['en', 'cs']
+  const router = useRouter()
+  const locales = useMemo(() => ['en', 'cs'], [])
+
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('cs')
+
+  useEffect(() => {
+    const currentLocale = pathname.split('/')[1]
+    if (locales.includes(currentLocale)) {
+      setSelectedLanguage(currentLocale)
+    } else {
+      setSelectedLanguage('cs')
+    }
+  }, [pathname, locales])
+
+  const handleLanguageChange = (lang: string) => {
+    const currentPathWithoutLocale = pathname.replace(/^\/(en|cs)/, '') || ''
+    const newPath = `/${lang}${currentPathWithoutLocale}`
+    router.push(newPath)
+  }
 
   return (
-    <Select>
+    <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
       <SelectTrigger className="w-auto border-none uppercase text-sm">
-        <SelectValue placeholder="cs" />
+        <SelectValue placeholder={selectedLanguage.toUpperCase()} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {locales.map((lang) => {
-            const currentPathWithoutLocale = pathname.replace(/^\/(en|cs)/, '') || ''
-            const newPath = `/${lang}${currentPathWithoutLocale}`
-
-            return (
-              <SelectItem key={lang} value={lang}>
-                <Link href={newPath} className="text-sm text-white">
-                  <button>{lang.toUpperCase()}</button>
-                </Link>
-              </SelectItem>
-            )
-          })}
+          {locales.map((lang) => (
+            <SelectItem key={lang} value={lang}>
+              {lang.toUpperCase()}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>

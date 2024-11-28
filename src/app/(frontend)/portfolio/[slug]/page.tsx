@@ -41,7 +41,7 @@ type Args = {
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
+  const url = '/portfolio/' + slug
   const post = await queryPostBySlug({ slug })
 
   if (!post) return <PayloadRedirects url={url} />

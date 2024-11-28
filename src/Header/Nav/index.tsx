@@ -7,7 +7,6 @@ import type { Header as HeaderType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { usePathname } from 'next/navigation'
 import { IconClose, IconHamburger } from '@/components/ui/Icons'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
@@ -30,7 +29,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
               key={i}
               {...link}
               className={`group relative flex items-center px-4 py-2 text-sm text-secondary text-black dark:text-white hover:brightness-90 font-semibold ${
-                isActive ? 'h-1 bg-opacity-100' : 'group-hover:h-1 group-hover:bg-opacity-100'
+                isActive ? 'underline' : ''
               }`}
               appearance="link"
             />

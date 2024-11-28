@@ -22,9 +22,10 @@ export const Card: React.FC<{
   relationTo?: 'posts'
   showCategories?: boolean
   title?: string
+  wrap?: boolean
 }> = (props) => {
   const { card, link } = useClickableCard({})
-  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
+  const { className, doc, relationTo, showCategories, title: titleFromProps, wrap } = props
 
   const { slug, categories, meta, title, client } = doc || {}
   const { description, image: metaImage } = meta || {}
@@ -59,7 +60,7 @@ export const Card: React.FC<{
   return (
     <article
       className={cn(
-        'basis-full px-2 transition-all duration-[1s] ease-in-out md:basis-2/4 lg:basis-1/4 lg:hover:basis-2/4',
+        `basis-full px-2 transition-all duration-[1s] ease-in-out ${wrap ? 'md:basis-1/2 lg:basis-1/4 2xl:basis-1/5' : 'md:basis-1/3 lg:basis-1/5 2xl:basis-1/6 md:hover:basis-2/3 lg:hover:basis-2/5 2xl:hover:basis-2/6'}`,
         className,
       )}
       ref={card.ref}
@@ -118,7 +119,7 @@ export const Card: React.FC<{
           </div>
 
           <div
-            className="absolute top-4 right-4 flex justify-center items-center bg-white rounded-full size-12 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-20"
+            className="absolute top-4 right-4 flex justify-center items-center bg-white rounded-full size-12 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out z-10"
             style={{ background: 'rgba(0, 0, 0, .1)', backdropFilter: 'blur(30px)' }}
           >
             <IconArrowDown
