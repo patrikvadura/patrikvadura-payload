@@ -1,4 +1,7 @@
-import { usePathname, useRouter } from 'next/navigation'
+'use client'
+
+import { useRouter, usePathname } from 'next/navigation'
+import { routing } from '@/i18n/routing'
 import {
   Select,
   SelectContent,
@@ -7,38 +10,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useEffect, useMemo, useState } from 'react'
 
-const LanguageSwitcher = () => {
-  const pathname = usePathname()
+export default function LanguageSwitcher() {
   const router = useRouter()
-  const locales = useMemo(() => ['en', 'cs'], [])
-
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('cs')
-
-  useEffect(() => {
-    const currentLocale = pathname.split('/')[1]
-    if (locales.includes(currentLocale)) {
-      setSelectedLanguage(currentLocale)
-    } else {
-      setSelectedLanguage('cs')
-    }
-  }, [pathname, locales])
+  const pathname = usePathname()
 
   const handleLanguageChange = (lang: string) => {
-    const currentPathWithoutLocale = pathname.replace(/^\/(en|cs)/, '') || ''
+    const currentPathWithoutLocale = pathname.replace(/^\/(cs|en)/, '') || ''
     const newPath = `/${lang}${currentPathWithoutLocale}`
     router.push(newPath)
   }
 
   return (
-    <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+    <Select
+      value={routing.locales.find((locale) => pathname.startsWith(`/${locale}`))}
+      onValueChange={handleLanguageChange}
+    >
       <SelectTrigger className="w-auto border-none uppercase text-sm">
-        <SelectValue placeholder={selectedLanguage.toUpperCase()} />
+        <SelectValue placeholder={routing.defaultLocale.toUpperCase()} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {locales.map((lang) => (
+          {routing.locales.map((lang) => (
             <SelectItem key={lang} value={lang}>
               {lang.toUpperCase()}
             </SelectItem>
@@ -48,5 +41,3 @@ const LanguageSwitcher = () => {
     </Select>
   )
 }
-
-export default LanguageSwitcher

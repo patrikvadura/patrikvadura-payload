@@ -1,0 +1,15 @@
+{
+  "HomePage": {
+    "title": "Ahoj světe!",
+    "about": "Přejít na stránku o nás"
+  },
+  "Footer": {
+    "darkMode": "Tmavý režim",
+    "lightMode": "Světlý režim"
+  },
+  "NotFound": {
+    "title": "Stránka nenalezena",
+    "description": "Stránka, kterou hledáte, neexistuje",
+    "backToHome" : "Zpět na úvodní stránku"
+  }
+}

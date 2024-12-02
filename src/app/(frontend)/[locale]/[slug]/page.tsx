@@ -12,6 +12,8 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
+import { setRequestLocale } from 'next-intl/server'
+import { getLocale } from 'next-intl/server'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -38,12 +40,15 @@ export async function generateStaticParams() {
 type Args = {
   params: {
     slug?: string
-    locale?: 'cs' | 'en' | undefined
+    locale?: any
   }
 }
 
 export default async function Page({ params }: Args) {
-  const { slug = 'home', locale = 'cs' } = params
+  const locale = params.locale || (await getLocale()) || 'cs'
+  const { slug = 'home' } = params
+
+  setRequestLocale(locale)
 
   let page: PageType | null
 
@@ -67,7 +72,7 @@ export default async function Page({ params }: Args) {
     <article className="pt-16 pb-24">
       <PageClient />
       <PayloadRedirects disableNotFound url={`/${locale}`} />
-      <RenderHero {...hero} />
+      <RenderHero {...hero} locale={locale} />
       <RenderBlocks blocks={layout} />
     </article>
   )

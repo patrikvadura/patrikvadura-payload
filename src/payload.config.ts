@@ -7,8 +7,11 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+// import { en } from 'payload/i18n/en'
+// import { cs } from 'payload/i18n/cs'
 import { cs } from '@payloadcms/translations/languages/cs'
 import { en } from '@payloadcms/translations/languages/en'
+import { locales } from './i18n/locales'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -86,23 +89,14 @@ export default buildConfig({
   }),
   secret: process.env.PAYLOAD_SECRET,
   sharp,
+  localization: {
+    locales: locales,
+    defaultLocale: 'cs',
+    fallback: true,
+  },
   i18n: {
     supportedLanguages: { cs, en },
     fallbackLanguage: 'cs',
-  },
-  localization: {
-    locales: [
-      {
-        label: 'Čeština',
-        code: 'cs',
-      },
-      {
-        label: 'English',
-        code: 'en',
-      },
-    ],
-    defaultLocale: 'cs',
-    fallback: true,
   },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

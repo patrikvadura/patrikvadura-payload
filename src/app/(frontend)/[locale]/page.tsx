@@ -1,13 +1,5 @@
-import { redirect } from 'next/navigation'
+import PageTemplate, { generateMetadata } from './[slug]/page'
 
-type Props = {
-  params: {
-    locale: 'cs' | 'en' | undefined
-  }
-}
+export default PageTemplate
 
-export default function LocalePage({ params }: Props) {
-  const { locale } = params
-
-  redirect(`/${locale}/home`)
-}
+export { generateMetadata }

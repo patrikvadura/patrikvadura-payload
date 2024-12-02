@@ -15,7 +15,9 @@ import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export const TypoOnly: React.FC<Page['hero']> = ({ richText }) => {
+type TypoOnlyProps = Page['hero'] & { locale: 'cs' | 'en' }
+
+export const TypoOnly: React.FC<TypoOnlyProps> = ({ richText, locale }) => {
   const titleRef = useRef<SVGSVGElement>(null)
   const borderSectionRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLDivElement>(null)
@@ -77,7 +79,7 @@ export const TypoOnly: React.FC<Page['hero']> = ({ richText }) => {
   return (
     <div className="-mt-16 flex flex-col items-center w-full h-full min-h-screen">
       <div className="flex flex-col justify-center py-12 md:py-8 px-12 flex-grow">
-        <AnimatedTitle target="#smooth-wrapper" />
+        <AnimatedTitle target="#smooth-wrapper" locale={locale} />
 
         <div className="flex flex-col md:flex-row py-8 md:py-16 gap-12 flex-grow flex-1">
           <div className="md:basis-1/3 flex flex-row items-start space-x-6">
@@ -85,7 +87,9 @@ export const TypoOnly: React.FC<Page['hero']> = ({ richText }) => {
               ref={logoRef}
               className="border-r border-black dark:border-white border-opacity-50 pr-4 md:pr-6 translate-y-1.5"
             >
-              <Logo />
+              <Link href="/" target="_self">
+                <Logo />
+              </Link>
             </div>
 
             <AnimatedHeading as="h2" delay={0.25}>
@@ -104,7 +108,7 @@ export const TypoOnly: React.FC<Page['hero']> = ({ richText }) => {
               <AnimatedHeading
                 as="h3"
                 delay={0.5}
-                className="group flex  text-blackdark:text-white text-4xl md:text-3xl lg:text-3xl"
+                className="group flex text-black dark:text-white text-4xl md:text-3xl lg:text-3xl"
               >
                 Projekty{' '}
                 <IconArrowDown className="ml-3 translate-y-0 group-hover:translate-y-4 text-black dark:text-white transition-all duration-300 ease-in-out" />

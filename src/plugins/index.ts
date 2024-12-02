@@ -18,10 +18,14 @@ const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
 }
 
-const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
+const generateURL: GenerateURL<Post | Page> = ({ doc, req: { locale } }) => {
   const url = getServerSideURL()
 
-  return doc?.slug ? `${url}/${doc.slug}` : url
+  // return doc?.slug ? `${url}/${doc.slug}` : url
+
+  return doc?.slug
+    ? `${process.env.NEXT_PUBLIC_SERVER_URL!}/${locale}`
+    : process.env.NEXT_PUBLIC_SERVER_URL!
 }
 
 export const plugins: Plugin[] = [
