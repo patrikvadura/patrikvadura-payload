@@ -44,7 +44,7 @@ export default function AnimatedParagraph({
         },
       )
     }
-  }, [target])
+  }, [target, delay])
 
   return (
     <Component

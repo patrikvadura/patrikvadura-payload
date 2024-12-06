@@ -44,7 +44,7 @@ export default function AnimatedHeading({
         },
       )
     }
-  }, [target])
+  }, [target, delay])
 
   return (
     <Component

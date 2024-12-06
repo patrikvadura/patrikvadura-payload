@@ -13,7 +13,7 @@ const heroes = {
   typoOnly: TypoOnly,
 }
 
-type RenderHeroProps = Page['hero'] & { locale: 'cs' | 'en' }
+type RenderHeroProps = Page['hero'] & { locale: string }
 
 export const RenderHero: React.FC<RenderHeroProps> = (props) => {
   const { type, locale } = props || {}

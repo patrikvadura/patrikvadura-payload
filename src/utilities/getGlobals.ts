@@ -8,13 +8,11 @@ type Global = keyof Config['globals']
 async function getGlobal(slug: Global, depth = 0, locale: 'en' | 'cs') {
   const payload = await getPayloadHMR({ config: configPromise })
 
-  const global = await payload.findGlobal({
+  return await payload.findGlobal({
     slug,
     depth,
     locale,
   })
-
-  return global
 }
 
 /**

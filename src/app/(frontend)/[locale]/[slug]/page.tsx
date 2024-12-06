@@ -27,7 +27,7 @@ export async function generateStaticParams() {
     },
   })
 
-  const locales = ['en', 'cs']
+  const locales: Array<'cs' | 'en'> = ['en', 'cs']
 
   return pages.docs.flatMap(({ slug }) => {
     return locales.map((locale) => ({
@@ -37,16 +37,19 @@ export async function generateStaticParams() {
   })
 }
 
-type Args = {
-  params: {
-    slug?: string
-    locale?: any
-  }
+type Params = {
+  slug?: string
+  locale?: 'cs' | 'en' | 'all'
 }
 
-export default async function Page({ params }: Args) {
-  const locale = params.locale || (await getLocale()) || 'cs'
-  const { slug = 'home' } = params
+type PageProps = {
+  params: Promise<Params> // Oprava: params jako Promise
+}
+
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params // Explicitní čekání na params
+  const locale = validateLocale(resolvedParams.locale || (await getLocale())) || 'cs'
+  const slug = resolvedParams.slug || 'home'
 
   setRequestLocale(locale)
 
@@ -78,8 +81,11 @@ export default async function Page({ params }: Args) {
   )
 }
 
-export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  const { slug = 'home', locale = 'cs' } = params
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params // Explicitní čekání na params
+  const locale = validateLocale(resolvedParams.locale) || 'cs'
+  const slug = resolvedParams.slug || 'home'
+
   const page = await queryPageBySlug({
     slug,
     locale,
@@ -89,7 +95,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 }
 
 const queryPageBySlug = cache(
-  async ({ slug, locale = 'cs' }: { slug: string; locale: 'cs' | 'en' | undefined }) => {
+  async ({ slug, locale = 'cs' }: { slug: string; locale: 'cs' | 'en' | 'all' }) => {
     const { isEnabled: draft } = await draftMode()
 
     const payload = await getPayload({ config: configPromise })
@@ -111,3 +117,11 @@ const queryPageBySlug = cache(
     return result.docs?.[0] || null
   },
 )
+
+/**
+ * Validuje locale a vrací jen povolené hodnoty.
+ */
+function validateLocale(locale: string | undefined): 'cs' | 'en' | undefined {
+  const allowedLocales: Array<'cs' | 'en'> = ['cs', 'en']
+  return allowedLocales.includes(locale as 'cs' | 'en') ? (locale as 'cs' | 'en') : undefined
+}

@@ -37,7 +37,7 @@ export default function AnimatedTitle({ target, locale }: { target?: string; loc
     <svg
       ref={titleRef}
       width="95vw"
-      className="stroke-2 dark:stroke-1 stroke-black dark:stroke-white transition-all duration-[1s] ease-in-out"
+      className="stroke-2 dark:stroke-1 stroke-black dark:stroke-white transition-all duration-1000 ease-in-out"
       viewBox="0 0 1799 282"
       onMouseEnter={(e) => {
         const paths = e.currentTarget.querySelectorAll('path')

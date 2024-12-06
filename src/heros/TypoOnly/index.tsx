@@ -15,7 +15,7 @@ import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type TypoOnlyProps = Page['hero'] & { locale: 'cs' | 'en' }
+type TypoOnlyProps = Page['hero'] & { locale: string }
 
 export const TypoOnly: React.FC<TypoOnlyProps> = ({ richText, locale }) => {
   const titleRef = useRef<SVGSVGElement>(null)

@@ -55,18 +55,18 @@ export const Card: React.FC<{
         },
       )
     }
-  }, [itemRef])
+  }, [itemRef, card.ref])
 
   return (
     <article
       className={cn(
-        `basis-full px-2 transition-all duration-[1s] ease-in-out ${wrap ? 'md:basis-1/2 lg:basis-1/4 2xl:basis-1/5' : 'md:basis-1/3 lg:basis-1/5 2xl:basis-1/6 md:hover:basis-2/3 lg:hover:basis-2/5 2xl:hover:basis-2/6'}`,
+        `basis-full px-2 transition-all duration-1000 ease-in-out ${wrap ? 'md:basis-1/2 lg:basis-1/4 2xl:basis-1/5' : 'md:basis-1/3 lg:basis-1/5 2xl:basis-1/6 md:hover:basis-2/3 lg:hover:basis-2/5 2xl:hover:basis-2/6'}`,
         className,
       )}
       ref={card.ref}
     >
       <Link className="not-prose" href={href} ref={link.ref} suppressHydrationWarning>
-        <div className="group w-full h-[340px] md:h-[440px] rounded-2xl relative overflow-hidden transition-all duration-[1s] ease-in-out">
+        <div className="group w-full h-[340px] md:h-[440px] rounded-2xl relative overflow-hidden transition-all duration-1000 ease-in-out">
           {!metaImage && <div className="">No image</div>}
           {metaImage && typeof metaImage !== 'string' && (
             <Media
