@@ -14,6 +14,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { setRequestLocale } from 'next-intl/server'
 import { getLocale } from 'next-intl/server'
+import { AnimatedMorphTitle } from '@/components/ui/Animations'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -77,6 +78,10 @@ export default async function Page({ params }: PageProps) {
       <PayloadRedirects disableNotFound url={`/${locale}`} />
       <RenderHero {...hero} locale={locale} />
       <RenderBlocks blocks={layout} />
+
+      <div id="morphTitleHomepage" className="pt-64">
+        <AnimatedMorphTitle target="#morphTitleHomepage" />
+      </div>
     </article>
   )
 }

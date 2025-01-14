@@ -17,27 +17,23 @@ export const hero: Field = {
       name: 'type',
       type: 'select',
       defaultValue: 'lowImpact',
-      label: 'Type',
+      label: 'Typ',
       options: [
         {
-          label: 'None',
+          label: 'Žádny',
           value: 'none',
         },
         {
-          label: 'High Impact',
+          label: 'Výrazný',
           value: 'highImpact',
         },
         {
-          label: 'Medium Impact',
+          label: 'Běžný',
           value: 'mediumImpact',
         },
         {
-          label: 'Low Impact',
+          label: 'Jednoduchý',
           value: 'lowImpact',
-        },
-        {
-          label: 'Typo Only',
-          value: 'typoOnly',
         },
       ],
       required: true,
@@ -60,20 +56,32 @@ export const hero: Field = {
     },
     linkGroup({
       overrides: {
-        maxRows: 2,
-        admin: {
-          condition: (_, { type } = {}) => !['typoOnly'].includes(type),
-        },
+        maxRows: 1,
       },
     }),
     {
       name: 'media',
       type: 'upload',
+      label: 'Obrázek',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ['mediumImpact'].includes(type),
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'typoPath',
+      type: 'code',
+      label: 'SVG Path',
+      required: true,
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact'].includes(type),
+        language: 'html',
+        editorOptions: {
+          padding: { top: 12 },
+        },
+      },
+      localized: true,
     },
   ],
   label: false,

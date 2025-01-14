@@ -83,7 +83,7 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'typoOnly';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
     richText?: {
       root: {
         type: string;
@@ -111,7 +111,7 @@ export interface Page {
             url?: string | null;
             label: string;
             /**
-             * Choose how the link should be rendered.
+             * Vyberte jak se má odkaz zobrazovat.
              */
             appearance?: ('default' | 'outline') | null;
           };
@@ -119,6 +119,7 @@ export interface Page {
         }[]
       | null;
     media?: (string | null) | Media;
+    typoPath?: string | null;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {
@@ -252,7 +253,7 @@ export interface CallToActionBlock {
           url?: string | null;
           label: string;
           /**
-           * Choose how the link should be rendered.
+           * Vyberte jak se má odkaz zobrazovat.
            */
           appearance?: ('default' | 'outline') | null;
         };
@@ -297,7 +298,7 @@ export interface ContentBlock {
           url?: string | null;
           label: string;
           /**
-           * Choose how the link should be rendered.
+           * Vyberte jak se má odkaz zobrazovat.
            */
           appearance?: ('default' | 'outline') | null;
         };
@@ -803,6 +804,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        typoPath?: T;
       };
   layout?:
     | T

@@ -15,7 +15,7 @@ import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | Patrik Vaďura` : 'Patrik Vaďura'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc, req: { locale } }) => {
@@ -76,6 +76,11 @@ export const plugins: Plugin[] = [
     fields: {
       payment: false,
     },
+    formSubmissionOverrides: {
+      admin: {
+        hidden: true,
+      },
+    },
     formOverrides: {
       labels: {
         singular: {
@@ -108,24 +113,5 @@ export const plugins: Plugin[] = [
       },
     },
   }),
-  // searchPlugin({
-  //   collections: ['pages', 'posts'],
-  //   beforeSync: beforeSyncWithSearch,
-  //   searchOverrides: {
-  //     labels: {
-  //       singular: {
-  //         cs: 'Výsledky vyhledávání',
-  //         en: 'Search Results',
-  //       },
-  //       plural: {
-  //         cs: 'Výsledky vyhledávání',
-  //         en: 'Search Results',
-  //       },
-  //     },
-  //     fields: ({ defaultFields }) => {
-  //       return [...defaultFields, ...searchFields]
-  //     },
-  //   },
-  // }),
   payloadCloudPlugin(),
 ]

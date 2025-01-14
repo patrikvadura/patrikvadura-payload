@@ -73,6 +73,7 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       name: 'title',
       type: 'text',
+      label: 'Nadpis',
       required: true,
     },
     {
@@ -87,11 +88,12 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
+              label: 'Rozložení',
               blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
               required: true,
             },
           ],
-          label: 'Content',
+          label: 'Obsah',
         },
         {
           name: 'meta',

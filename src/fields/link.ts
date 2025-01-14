@@ -6,11 +6,11 @@ export type LinkAppearances = 'default' | 'outline'
 
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
-    label: 'Default',
+    label: 'Výchozí',
     value: 'default',
   },
   outline: {
-    label: 'Outline',
+    label: 'Obrys',
     value: 'outline',
   },
 }
@@ -35,6 +35,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           {
             name: 'type',
             type: 'radio',
+            label: 'Typ',
             admin: {
               layout: 'horizontal',
               width: '50%',
@@ -42,11 +43,11 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
             defaultValue: 'reference',
             options: [
               {
-                label: 'Internal link',
+                label: 'Interní odkaz',
                 value: 'reference',
               },
               {
-                label: 'Custom URL',
+                label: 'Vlastní URL',
                 value: 'custom',
               },
             ],
@@ -60,7 +61,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
               },
               width: '50%',
             },
-            label: 'Open in new tab',
+            label: 'Otevřít v novém okně',
           },
         ],
       },
@@ -74,7 +75,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
-      label: 'Document to link to',
+      label: 'Stránka na kterou odkazovat',
       maxDepth: 1,
       relationTo: ['pages'],
       required: true,
@@ -85,7 +86,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
-      label: 'Custom URL',
+      label: 'Vlastní URL',
       required: true,
     },
   ]
@@ -109,7 +110,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           admin: {
             width: '50%',
           },
-          label: 'Label',
+          label: 'Text',
           localized: true,
           required: true,
         },
@@ -129,8 +130,9 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     linkResult.fields.push({
       name: 'appearance',
       type: 'select',
+      label: 'Vzhled',
       admin: {
-        description: 'Choose how the link should be rendered.',
+        description: 'Vyberte jak se má odkaz zobrazovat.',
       },
       defaultValue: 'default',
       options: appearanceOptionsToUse,

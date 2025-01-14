@@ -1,0 +1,26 @@
+.beforeNavLinksMailto {
+  margin-right: 8px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+}
+
+.group-field--top-level .group-field__title,
+.group-field--top-level .group-field__title label {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.group-field--within-group .group-field__title,
+.group-field--within-group .group-field__title label {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+}
