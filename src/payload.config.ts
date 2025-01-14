@@ -7,8 +7,6 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
-// import { en } from 'payload/i18n/en'
-// import { cs } from 'payload/i18n/cs'
 import { cs } from '@payloadcms/translations/languages/cs'
 import { en } from '@payloadcms/translations/languages/en'
 import { locales } from './i18n/locales'
