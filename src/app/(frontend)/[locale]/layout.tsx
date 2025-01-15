@@ -4,7 +4,6 @@ import localFont from 'next/font/local'
 import React from 'react'
 
 import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -18,22 +17,22 @@ import { draftMode } from 'next/headers'
 const defaultFont = localFont({
   src: [
     {
-      path: './fonts/PPTelegraf-Ultralight.woff2',
+      path: './fonts/PPMori/Book.woff2',
       weight: '300',
       style: 'normal',
     },
     {
-      path: './fonts/PPTelegraf-Regular.woff2',
+      path: './fonts/PPTelegraf/Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './fonts/PPTelegraf-Bold.woff2',
+      path: './fonts/PPMori/SemiBold.woff2',
       weight: '700',
       style: 'normal',
     },
     {
-      path: './fonts/PPTelegraf-Black.woff2',
+      path: './fonts/PPMori/ExtraBold.woff2',
       weight: '900',
       style: 'normal',
     },
@@ -51,6 +50,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         <InitTheme />
+        <link href="/favicon.ico" rel="icon" sizes="32x32" />
+        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body className="bg-white dark:bg-black">
         <Providers>
@@ -61,7 +62,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <LivePreviewListener />
 
-          <Header />
           {children}
           <Footer />
         </Providers>
@@ -76,21 +76,5 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     creator: '@patrikvadura',
-  },
-  icons: {
-    icon: [
-      {
-        url: `/icon?<generated>`,
-        sizes: '32x32',
-        type: 'image/png',
-      },
-    ],
-    apple: [
-      {
-        url: `/apple-icon?<generated>`,
-        sizes: '180x180',
-        type: 'image/png',
-      },
-    ],
   },
 }

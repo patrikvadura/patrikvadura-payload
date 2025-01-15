@@ -24,10 +24,13 @@ const RichText: React.FC<Props> = ({
     <div
       className={cn(
         {
-          'container ': enableGutter,
+          container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose dark:prose-invert ': enableProse,
+          'mx-auto prose dark:prose-invert': enableProse,
         },
+        'prose-h2:!leading-[1.4] prose-h3:!leading-[1.3] prose-h4:!leading-[1.3]',
+        'prose-h2:font-normal prose-h3:font-normal prose-h4:font-bold',
+        'prose-h2:text-5xl md:prose-h2:text-6xl prose-h3:text-4xl md:prose-h3:text-5xl prose-h4:text-xl',
         className,
       )}
     >

@@ -35,7 +35,7 @@ export default function AnimatedTitle({ target, typoPath }: { target?: string; t
     <svg
       ref={titleRef}
       width="95vw"
-      className="stroke-2 dark:stroke-1 stroke-black dark:stroke-white transition-all duration-1000 ease-in-out"
+      className="stroke-2 md:dark:stroke-1 stroke-black dark:stroke-white transition-all duration-1000 ease-in-out"
       viewBox="0 0 1799 282"
       onMouseEnter={(e) => {
         const paths = e.currentTarget.querySelectorAll('path')

@@ -1,0 +1,26 @@
+.slidingText {
+  @apply overflow-hidden flex flex-nowrap whitespace-nowrap;
+
+  min-width: 100%;
+
+  &Content {
+    @apply flex shrink-[0] px-8 py-4;
+
+    animation: slide-left 10s linear infinite;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.outline {
+  @apply text-transparent;
+
+  -webkit-text-stroke: 2px hsl(var(--foreground));
+}

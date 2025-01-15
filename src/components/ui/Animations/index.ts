@@ -1,6 +1,7 @@
 export { default as AnimatedHeading } from './AnimatedHeading'
 export { default as AnimatedTitle } from './AnimatedTitle'
-export { default as AnimatedTitlePortfolio } from './AnimatedTitlePortfolio'
 export { default as AnimatedParagraph } from './AnimatedParagraph'
 export { default as AnimatedMorphTitle } from './AnimatedMorphTitle'
 export { default as AnimatedMorphTitlePortfolio } from './AnimatedMorphTitlePortfolio'
+export { default as AnimatedImage } from './AnimatedImage'
+export { default as AnimatedSlidingText } from './AnimatedSlidingText'

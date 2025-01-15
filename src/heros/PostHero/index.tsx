@@ -1,93 +1,77 @@
-import { formatDateTime } from 'src/utilities/formatDateTime'
 import React from 'react'
 
 import type { Post } from '@/payload-types'
-
 import { Media } from '@/components/Media'
+
+import {
+  AnimatedHeading,
+  AnimatedImage,
+  AnimatedParagraph,
+  AnimatedSlidingText,
+} from '@/components/ui/Animations'
 
 export const PostHero: React.FC<{
   post: Post
+  locale: 'cs' | 'en'
 }> = ({ post }) => {
-  const { categories, meta: { image: metaImage } = {}, populatedAuthors, publishedAt, title } = post
+  const { categories, client, meta: { image: metaImage } = {}, title } = post
 
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
-        <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
-          <div className="uppercase text-sm mb-6">
-            {categories?.map((category, index) => {
-              if (typeof category === 'object' && category !== null) {
-                const { title: categoryTitle } = category
+    <div className="relative -mt-[4rem] flex items-end">
+      <div className="z-10 relative text-white pb-16 md:pb-24 w-full">
+        <div className="flex flex-col space-y-4">
+          <AnimatedHeading as="div" target="body" delay={1}>
+            <AnimatedSlidingText classNameTitle="text-7xl md:text-9xl lg:text-[10rem] font-bold">
+              {title}
+            </AnimatedSlidingText>
+          </AnimatedHeading>
 
-                const titleToUse = categoryTitle || 'Untitled category'
+          <div className="container flex flex-col space-y-4 mt-12">
+            <AnimatedParagraph
+              as="div"
+              delay={1.5}
+              target="body"
+              className="text-foreground text-2xl"
+            >
+              {client}
+            </AnimatedParagraph>
 
-                const isLast = index === categories.length - 1
+            <AnimatedParagraph as="div" delay={1.5} target="body" className="text-foreground">
+              {categories?.map((category, index) => {
+                if (typeof category === 'object' && category !== null) {
+                  const { title: categoryTitle } = category
 
-                return (
-                  <React.Fragment key={index}>
-                    {titleToUse}
-                    {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
-                  </React.Fragment>
-                )
-              }
-              return null
-            })}
-          </div>
+                  const titleToUse = categoryTitle || 'Untitled category'
 
-          <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
-          </div>
+                  const isLast = index === categories.length - 1
 
-          <div className="flex flex-col md:flex-row gap-4 md:gap-16">
-            <div className="flex flex-col gap-4">
-              {populatedAuthors && (
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm">Author</p>
-                  {populatedAuthors.map((author, index) => {
-                    const { name } = author
-
-                    const isLast = index === populatedAuthors.length - 1
-                    const secondToLast = index === populatedAuthors.length - 2
-
-                    return (
-                      <React.Fragment key={index}>
-                        {name}
-                        {secondToLast && populatedAuthors.length > 2 && (
-                          <React.Fragment>, </React.Fragment>
-                        )}
-                        {secondToLast && populatedAuthors.length === 2 && (
-                          <React.Fragment> </React.Fragment>
-                        )}
-                        {!isLast && populatedAuthors.length > 1 && (
-                          <React.Fragment>and </React.Fragment>
-                        )}
-                      </React.Fragment>
-                    )
-                  })}
-                </div>
-              )}
-            </div>
-            {publishedAt && (
-              <div className="flex flex-col gap-1">
-                <p className="text-sm">Date Published</p>
-
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
-              </div>
-            )}
+                  return (
+                    <React.Fragment key={index}>
+                      {'#' + titleToUse}
+                      {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
+                    </React.Fragment>
+                  )
+                }
+                return null
+              })}
+            </AnimatedParagraph>
           </div>
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
+
+      <div className="min-h-[100vh] select-none">
         {metaImage && typeof metaImage !== 'string' && (
-          <Media
-            fill
-            priority={false}
-            loading="lazy"
-            imgClassName="-z-10 object-cover"
-            resource={metaImage}
-          />
+          <AnimatedImage target="body">
+            <Media
+              fill
+              priority={false}
+              loading="lazy"
+              imgClassName="-z-10 object-cover"
+              resource={metaImage}
+            />
+          </AnimatedImage>
         )}
-        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-full bg-gradient-to-t from-background to-transparent" />
       </div>
     </div>
   )

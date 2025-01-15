@@ -15,6 +15,7 @@ import PageClient from './page.client'
 import { setRequestLocale } from 'next-intl/server'
 import { getLocale } from 'next-intl/server'
 import { AnimatedMorphTitle } from '@/components/ui/Animations'
+import { Header } from '@/Header/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -44,11 +45,11 @@ type Params = {
 }
 
 type PageProps = {
-  params: Promise<Params> // Oprava: params jako Promise
+  params: Promise<Params>
 }
 
 export default async function Page({ params }: PageProps) {
-  const resolvedParams = await params // Explicitní čekání na params
+  const resolvedParams = await params
   const locale = validateLocale(resolvedParams.locale || (await getLocale())) || 'cs'
   const slug = resolvedParams.slug || 'home'
 
@@ -61,7 +62,6 @@ export default async function Page({ params }: PageProps) {
     locale,
   })
 
-  // Fallback pro seedovanou domovskou stránku
   if (!page && slug === 'home') {
     page = homeStatic
   }
@@ -73,21 +73,25 @@ export default async function Page({ params }: PageProps) {
   const { hero, layout } = page
 
   return (
-    <article className="pt-16 pb-24">
-      <PageClient />
-      <PayloadRedirects disableNotFound url={`/${locale}`} />
-      <RenderHero {...hero} locale={locale} />
-      <RenderBlocks blocks={layout} />
+    <>
+      <Header />
 
-      <div id="morphTitleHomepage" className="pt-64">
-        <AnimatedMorphTitle target="#morphTitleHomepage" />
-      </div>
-    </article>
+      <article className="pt-16 pb-24">
+        <PageClient />
+        <PayloadRedirects disableNotFound url={`/${locale}`} />
+        <RenderHero {...hero} locale={locale} />
+        <RenderBlocks blocks={layout} />
+
+        <div id="morphTitleHomepage" className="pt-64">
+          <AnimatedMorphTitle target="#morphTitleHomepage" />
+        </div>
+      </article>
+    </>
   )
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const resolvedParams = await params // Explicitní čekání na params
+  const resolvedParams = await params
   const locale = validateLocale(resolvedParams.locale) || 'cs'
   const slug = resolvedParams.slug || 'home'
 

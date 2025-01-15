@@ -28,6 +28,10 @@ import {
 import { slugField } from '@/fields/slug'
 import { getServerSideURL } from '@/utilities/getURL'
 import { hero } from '@/heros/config'
+import { CallToAction } from '@/blocks/CallToAction/config'
+import { Content } from '@/blocks/Content/config'
+import { Archive } from '@/blocks/ArchiveBlock/config'
+import { FormBlock } from '@/blocks/Form/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -86,6 +90,7 @@ export const Posts: CollectionConfig<'posts'> = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       type: 'tabs',
@@ -109,27 +114,14 @@ export const Posts: CollectionConfig<'posts'> = {
                 cs: 'Úvodní popisek',
                 en: 'Introduction',
               },
+              localized: true,
               required: true,
             },
             {
-              name: 'content',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
-                },
-              }),
-              label: {
-                cs: 'Obsah',
-                en: 'Content',
-              },
+              name: 'layout',
+              type: 'blocks',
+              label: 'Rozložení',
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
               required: true,
             },
           ],
@@ -170,6 +162,7 @@ export const Posts: CollectionConfig<'posts'> = {
                 en: 'Client',
               },
               required: true,
+              localized: true,
             },
           ],
           label: 'Meta',

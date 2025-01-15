@@ -13,22 +13,23 @@ const columnFields: Field[] = [
   {
     name: 'size',
     type: 'select',
+    label: 'Velikost',
     defaultValue: 'oneThird',
     options: [
       {
-        label: 'One Third',
+        label: '1/3',
         value: 'oneThird',
       },
       {
-        label: 'Half',
+        label: '1/2',
         value: 'half',
       },
       {
-        label: 'Two Thirds',
+        label: '2/3',
         value: 'twoThirds',
       },
       {
-        label: 'Full',
+        label: 'Na celou šířku',
         value: 'full',
       },
     ],
@@ -47,18 +48,8 @@ const columnFields: Field[] = [
       },
     }),
     label: false,
+    localized: true,
   },
-  {
-    name: 'enableLink',
-    type: 'checkbox',
-  },
-  link({
-    overrides: {
-      admin: {
-        condition: (_, { enableLink }) => Boolean(enableLink),
-      },
-    },
-  }),
 ]
 
 export const Content: Block = {
@@ -68,7 +59,12 @@ export const Content: Block = {
     {
       name: 'columns',
       type: 'array',
+      label: 'Sloupce',
       fields: columnFields,
     },
   ],
+  labels: {
+    singular: 'Sloupec',
+    plural: 'Sloupce',
+  },
 }

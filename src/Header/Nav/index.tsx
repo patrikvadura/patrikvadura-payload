@@ -8,6 +8,7 @@ import { CMSLink } from '@/components/Link'
 import { usePathname } from 'next/navigation'
 import { IconClose, IconHamburger } from '@/components/ui/Icons'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
   const navItems = header?.navItems || []
@@ -28,7 +29,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
             <CMSLink
               key={i}
               {...link}
-              className={`group relative flex items-center px-4 py-2 text-sm text-secondary text-black dark:text-white hover:brightness-90 font-semibold ${
+              className={`group relative flex items-center px-4 py-2 text-sm text-foreground hover:brightness-90 font-semibold ${
                 isActive ? 'underline' : ''
               }`}
               appearance="link"
@@ -36,6 +37,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           )
         })}
 
+        <ThemeSelector />
         <LanguageSwitcher />
       </div>
 

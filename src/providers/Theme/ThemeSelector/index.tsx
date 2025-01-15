@@ -31,9 +31,9 @@ export const ThemeSelector: React.FC = () => {
       className="bg-transparent border-none p-2 cursor-pointer relative"
     >
       {theme === 'light' ? (
-        <IconThemeDark size={20} className="text-black" />
+        <IconThemeDark size={20} className="text-foreground" />
       ) : (
-        <IconThemeLight size={20} className="text-white" />
+        <IconThemeLight size={20} className="text-foreground" />
       )}
     </button>
   )
