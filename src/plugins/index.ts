@@ -32,16 +32,6 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
-      labels: {
-        singular: {
-          cs: 'Přesměrování',
-          en: 'Redirect',
-        },
-        plural: {
-          cs: 'Přesměrování',
-          en: 'Redirects',
-        },
-      },
       // @ts-expect-error
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -83,14 +73,8 @@ export const plugins: Plugin[] = [
     },
     formOverrides: {
       labels: {
-        singular: {
-          cs: 'Formulář',
-          en: 'Form',
-        },
-        plural: {
-          cs: 'Formuláře',
-          en: 'Forms',
-        },
+        singular: 'Formulář',
+        plural: 'Formuláře',
       },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -110,6 +94,15 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+      },
+    },
+  }),
+  searchPlugin({
+    collections: ['posts'],
+    beforeSync: beforeSyncWithSearch,
+    searchOverrides: {
+      fields: ({ defaultFields }) => {
+        return [...defaultFields, ...searchFields]
       },
     },
   }),

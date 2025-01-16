@@ -3,13 +3,16 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Footer } from '@/payload-types'
+import { getLocale } from 'next-intl/server'
 
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 
 export async function Footer() {
-  const footer: Footer = await getCachedGlobal('footer', 1, 'cs')()
+  const currentLocale = await getLocale()
+
+  const footer: Footer = await getCachedGlobal('footer', 1, currentLocale as 'en' | 'cs')()
 
   const navItems = footer?.navItems || []
 

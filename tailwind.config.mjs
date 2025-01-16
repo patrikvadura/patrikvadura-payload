@@ -52,6 +52,16 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontSize: {
+        'p-small': '16px',
+        p: '24px',
+        'p-large': '32px',
+        h5: '24px',
+        h4: '32px',
+        h3: '56px',
+        h2: '80px',
+        h1: '140px',
+      },
       colors: {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
@@ -106,20 +116,41 @@ export default {
       },
       typography: ({ theme }) => ({
         DEFAULT: {
-          css: {
-            '--tw-prose-body': 'var(--text)',
-            '--tw-prose-headings': 'var(--text)',
-            h1: {
-              fontSize: '3.5rem',
-              fontWeight: 'normal',
-              marginBottom: '0.25em',
-            },
-            a: {
-              '&:hover': {
-                color: theme('colors.primary.DEFAULT'),
+          css: [
+            {
+              '--tw-prose-body': 'var(--text)',
+              '--tw-prose-headings': 'var(--text)',
+              h1: {
+                fontWeight: 'normal',
+                marginBottom: '0.25em',
               },
             },
-          },
+          ],
+        },
+        base: {
+          css: [
+            {
+              h1: {
+                fontSize: '2.5rem',
+              },
+              h2: {
+                fontSize: '1.25rem',
+                fontWeight: 600,
+              },
+            },
+          ],
+        },
+        md: {
+          css: [
+            {
+              h1: {
+                fontSize: '3.5rem',
+              },
+              h2: {
+                fontSize: '1.5rem',
+              },
+            },
+          ],
         },
       }),
     },

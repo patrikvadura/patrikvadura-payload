@@ -32,7 +32,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
               className={`group relative flex items-center px-4 py-2 text-sm text-foreground hover:brightness-90 font-semibold ${
                 isActive ? 'underline' : ''
               }`}
-              appearance="link"
+              appearance="inline"
             />
           )
         })}

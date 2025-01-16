@@ -14,10 +14,7 @@ export const Archive: Block = {
     {
       name: 'title',
       type: 'text',
-      label: {
-        cs: 'Nadpis sekce',
-        en: 'Section Title',
-      },
+      label: 'Nadpis sekce',
     },
     {
       name: 'introContent',
@@ -98,10 +95,7 @@ export const Archive: Block = {
       name: 'sectionId',
       type: 'text',
       required: false,
-      label: {
-        cs: 'ID sekce',
-        en: 'Section ID',
-      },
+      label: 'ID sekce',
     },
   ],
   labels: {

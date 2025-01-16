@@ -68,7 +68,7 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({ richText, typoPa
           <div className="md:basis-1/3 flex flex-row items-start space-x-6">
             <div
               ref={logoRef}
-              className="border-r border-black dark:border-white border-opacity-50 pr-4 md:pr-6 translate-y-1.5"
+              className="border-r border-foreground/30 pr-4 md:pr-6 translate-y-1.5"
             >
               <Link href="/" target="_self">
                 <Logo />
@@ -85,7 +85,7 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({ richText, typoPa
 
           <div
             ref={borderSectionRef}
-            className="relative md:basis-2/3 border-t-[.5px] md:border-t-0 md:border-l-[.5px] border-black dark:border-white border-opacity-50 flex flex-col items-start justify-between space-y-16 pt-8 md:pt-4 md:pl-12"
+            className="relative md:basis-2/3 border-t-[1px] md:border-t-0 md:border-l-[1px] border-foreground/30 flex flex-col items-start justify-between space-y-16 pt-8 md:pt-4 md:pl-12"
           >
             {Array.isArray(links) && links.length > 0 && (
               <>
@@ -99,10 +99,10 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({ richText, typoPa
                       <AnimatedHeading
                         as="h3"
                         delay={0.5}
-                        className="group flex text-black dark:text-white text-4xl md:text-3xl lg:text-3xl"
+                        className="group flex text-foreground text-4xl md:text-3xl lg:text-3xl"
                       >
                         {link.label}
-                        <IconArrowDown className="ml-3 translate-y-0 group-hover:translate-y-4 text-black dark:text-white transition-all duration-300 ease-in-out" />
+                        <IconArrowDown className="ml-3 translate-y-0 group-hover:translate-y-4 text-foreground transition-all duration-300 ease-in-out" />
                       </AnimatedHeading>
                     </Link>
                   )
@@ -118,8 +118,8 @@ export const HighImpactHero: React.FC<HighImpactHeroProps> = ({ richText, typoPa
                 className="mt-auto mb-0 max-w-screen-md opacity-75"
               >
                 <RichText
-                  className="prose-p:text-xl md:prose-p:text-4xl prose-p:text-black dark:prose-p:text-white mb-6"
-                  content={richText}
+                  className="prose-p:text-xl md:prose-p:text-4xl mb-6"
+                  data={richText}
                   enableGutter={false}
                 />
               </AnimatedParagraph>

@@ -1,5 +1,5 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from 'src/utilities/cn'
+import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -17,8 +17,8 @@ type CMSLinkType = {
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
+  onClick?: () => void
   url?: string | null
-  onClick?: () => void | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,8 +31,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     newTab,
     reference,
     size: sizeFromProps,
-    url,
     onClick,
+    url,
   } = props
 
   const href =
@@ -50,7 +50,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link className={cn(className)} href={href || url || ''} {...newTabProps} onClick={onClick}>
         {label && label}
         {children && children}
       </Link>
@@ -58,10 +58,24 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button asChild className={className} size={size} variant={appearance} onClick={onClick}>
+    <Button asChild className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
         {label && label}
         {children && children}
+
+        {appearance === 'default' ||
+          (appearance === 'outline' && (
+            <svg
+              width="24"
+              className="fill-foreground group-hover:fill-background"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M6.189 17.289L5.5 16.6L15.58 6.5H6.289v-1h11v11h-1V7.208z"
+              />
+            </svg>
+          ))}
       </Link>
     </Button>
   )

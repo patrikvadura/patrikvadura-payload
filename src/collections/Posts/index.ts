@@ -1,8 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
 import {
-  BlocksFeature,
-  FixedToolbarFeature,
   HeadingFeature,
   HorizontalRuleFeature,
   InlineToolbarFeature,
@@ -11,8 +9,6 @@ import {
 
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { Banner } from '@/blocks/Banner/config'
-import { Code } from '@/blocks/Code/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
@@ -26,24 +22,18 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
-import { getServerSideURL } from '@/utilities/getURL'
-import { hero } from '@/heros/config'
+
 import { CallToAction } from '@/blocks/CallToAction/config'
 import { Content } from '@/blocks/Content/config'
+import { Highlight } from '@/blocks/Highlight/config'
 import { Archive } from '@/blocks/ArchiveBlock/config'
 import { FormBlock } from '@/blocks/Form/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   labels: {
-    singular: {
-      cs: 'Příspěvek',
-      en: 'Post',
-    },
-    plural: {
-      cs: 'Příspěvky',
-      en: 'Posts',
-    },
+    singular: 'Příspěvek',
+    plural: 'Příspěvky',
   },
   access: {
     create: authenticated,
@@ -66,23 +56,22 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data }) => {
+      url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
+          req,
         })
 
-        return `${getServerSideURL()}${path}`
+        return path
       },
     },
-    preview: (data) => {
-      const path = generatePreviewPath({
+    preview: (data, { req }) =>
+      generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'posts',
-      })
-
-      return `${getServerSideURL()}${path}`
-    },
+        req,
+      }),
     useAsTitle: 'title',
   },
   fields: [
@@ -110,10 +99,7 @@ export const Posts: CollectionConfig<'posts'> = {
                   ]
                 },
               }),
-              label: {
-                cs: 'Úvodní popisek',
-                en: 'Introduction',
-              },
+              label: 'Úvodní popisek',
               localized: true,
               required: true,
             },
@@ -121,7 +107,7 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'layout',
               type: 'blocks',
               label: 'Rozložení',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [CallToAction, Content, Highlight, MediaBlock, Archive, FormBlock],
               required: true,
             },
           ],

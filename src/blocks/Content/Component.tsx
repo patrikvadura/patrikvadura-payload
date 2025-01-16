@@ -1,4 +1,4 @@
-import { cn } from 'src/utilities/cn'
+import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
 
@@ -14,7 +14,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
     twoThirds: '8',
   }
 
-  const richTextClass = 'md:prose-p:text-lg'
+  const richTextClass = 'md:prose-p:text-lg text-foreground'
 
   return (
     <div className="container my-16">
@@ -32,7 +32,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
                 key={index}
               >
                 {richText && (
-                  <RichText content={richText} className={richTextClass} enableGutter={false} />
+                  <RichText data={richText} enableGutter={false} className={richTextClass} />
                 )}
               </div>
             )

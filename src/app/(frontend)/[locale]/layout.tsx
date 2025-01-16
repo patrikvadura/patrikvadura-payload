@@ -9,10 +9,11 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { AdminBar } from '@/components/AdminBar'
 import { draftMode } from 'next/headers'
+
+import './globals.css'
 
 const defaultFont = localFont({
   src: [
@@ -53,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body className="bg-white dark:bg-black">
+      <body className="bg-background">
         <Providers>
           <AdminBar
             adminBarProps={{

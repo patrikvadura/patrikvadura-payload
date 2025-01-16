@@ -66,6 +66,7 @@ export default async function Post({ params: paramsPromise }: PostProps) {
         <PageClient />
         <PayloadRedirects disableNotFound url={url} />
         <PostHero post={post} locale={locale} />
+
         <RenderBlocks blocks={post.layout} />
 
         <div className="flex flex-col items-center gap-4 pt-32">
