@@ -23,7 +23,7 @@ const defaultFont = localFont({
       style: 'normal',
     },
     {
-      path: './fonts/PPTelegraf/Regular.woff2',
+      path: './fonts/PPMori/Regular.woff2',
       weight: '400',
       style: 'normal',
     },
